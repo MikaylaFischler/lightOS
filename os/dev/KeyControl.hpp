@@ -17,7 +17,7 @@
 #define KEYCTRL_KEY_NEXT 0x8
 
 /*!
- *
+ * TODO debounce ISRs to make this correct
  * @note One press worth of history is kept (in the high four bits).
  */
 class KeyControl {

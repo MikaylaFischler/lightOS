@@ -1,10 +1,10 @@
 #include "KeyControl.hpp"
 
-void KeyControl::init(void) {
+static void KeyControl::init(void) {
 	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { keys[i] = 255; }
 }
 
-bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
+static bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	// range safety
 	if (key_type >= KEYCTRL_NUM_KEYS) { return false; }
 
@@ -39,6 +39,8 @@ bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	keys[key_type] = __interrupt;
 	return true;
 }
+
+static uint8_t KeyControl::getKeyState(void) { return key_state_mask & 0x0F; }
 
 static void KeyControl::__key_esc_isr() {
 	key_state_mask << 4;
