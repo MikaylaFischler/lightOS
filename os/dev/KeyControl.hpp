@@ -23,7 +23,7 @@
 class KeyControl {
 private:
 	static volatile uint8_t key_state_mask;
-	static uint8_t[KEYCTRL_NUM_KEYS] keys;
+	static uint8_t keys[KEYCTRL_NUM_KEYS];
 
 	KeyControl() {};
 	~KeyControl() {};
