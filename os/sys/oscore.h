@@ -3,21 +3,26 @@
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
-#include "os.hpp"
 #include "../dev/KeyControl.hpp"
 #include "../dev/LCD.hpp"
 
-struct peripherals_t {
+struct __peripherals {
 	KeyControl* keys;
-	LCD* display;
+	LCD* lcd;
 	Adafruit_NeoPixel** leds;
 };
 
-struct instance_t {
+typedef struct __peripherals peripherals_t;
+
+#include "os.hpp"
+
+struct __instance {
 	os* sys;
 	peripherals_t* peripherals;
 };
 
-struct instance_t* lightos_inst;
+typedef struct __instance instance_t;
+
+instance_t* lightos_inst;
 
 #endif

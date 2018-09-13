@@ -4,23 +4,24 @@
 #include "oscore.h"
 
 class os {
+protected:
+	static peripherals_t* peripherals;
 private:
-	static void __step_ui(struct instance_t* instance);
-	static void __step_display(struct instance_t* instance);
-	static void __step_leds(struct instance_t* instance);
-
-	struct instance_t* instance;
+	static void __step_ui(peripherals_t* peripherals);
+	static void __step_display(peripherals_t* peripherals);
+	static void __step_leds(peripherals_t* peripherals);
 
 	os(void) {};
 	~os(void) {};
 public:
 	class ui;
 	class display;
-	class led_controller;
+	class led_ctrl;
 
-	static void __sync(struct instance_t* instance);
+	static void __attach(peripherals_t* peripherals);
 
 	static void step(void);
+	static void reboot(void);
 };
 
 #endif

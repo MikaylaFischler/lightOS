@@ -22,15 +22,11 @@ private:
 	};
 
 	static struct os::ui::ui_state_t* ui_stack;
-	static struct instance_t* instance;
 
 	ui(void) {};
 	~ui(void) {};
 public:
-	static void __sync(struct instance_t* instance);
-
 	static void init(void);
-	static void restart(void);
 
 	static void stepOut(void);
 	static void stepPrev(void);
