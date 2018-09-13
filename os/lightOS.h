@@ -4,6 +4,8 @@
 #include "sys/oscore.h"
 #include "sys/os.hpp"
 #include "sys/os.ui.hpp"
-#include "boot/boot.h"
+#include "sys/os.display.hpp"
+#include "sys/os.led_ctrl.hpp"
+#include "boot/boot.c"
 
 #endif
