@@ -3,10 +3,10 @@
 
 #include "os.hpp"
 
-#define DISP_CMD_PRINT_C 0x08
-#define DISP_CMD_PRINT_I 0x09
-#define DISP_CMD_PRINT_L 0x0A
-#define DISP_CMD_PRINT_S 0x0C
+#define DISP_CMD_PRINT_C 0x08	// character print
+#define DISP_CMD_PRINT_I 0x09	// integer print
+#define DISP_CMD_PRINT_L 0x0A	// long integer print
+#define DISP_CMD_PRINT_S 0x0C	// string print
 
 #define DISP_CMD_CURSOR 0x10
 #define DISP_CMD_HOME 	0x20

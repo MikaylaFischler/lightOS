@@ -10,10 +10,10 @@
 
 class os::ui {
 private:
-	void step(uint8_t command);
-	void __root(uint8_t state);
-	void __anim_select(uint8_t state);
-	void __config(uint8_t state);
+	static void step(uint8_t command);
+	static void __root(uint8_t state);
+	static void __anim_select(uint8_t state);
+	static void __config(uint8_t state);
 
 	struct ui_state_t {
 		uint8_t state;
