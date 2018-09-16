@@ -3,28 +3,30 @@
 
 #include "os.hpp"
 
-struct os::led_ctrl::anim_reg;
-typedef struct os::led_ctrl::anim_reg RegisteredAnimation;
-
 class os::led_ctrl {
+public:
+	struct anim_reg {
+		uint8_t id;
+		uint8_t num_strips;
+		uint8_t* strip_req;
+		void (*anim)(Adafruit_NeoPixel**);
+		struct os::led_ctrl::anim_reg* last;
+		struct os::led_ctrl::anim_reg* next;
+	};
+
+	typedef struct os::led_ctrl::anim_reg RegisteredAnimation;
+
+	static void queue(uint8_t anim_id);
+
+	static void registerAnimation(void (*anim)(Adafruit_NeoPixel**), uint8_t anim_id);
+	static RegisteredAnimation* getAnimationList(void);
 private:
-	static uint8_t usedBy[2];
+	static uint8_t running[2];
 	static RegisteredAnimation* registry;
 
 	led_ctrl(void);
 	~led_ctrl(void);
-public:
-	struct anim_reg {
-		uint8_t id;
-		Animation* animation;
-		struct os::led_ctrl::anim_reg last;
-		struct os::led_ctrl::anim_reg next;
-	};
-
-	static void queue(uint8_t anim_id);
-
-	static void registerAnimation(Animation* anim, anim_id);
-	static RegisteredAnimation* getAnimationList(void);
 };
+
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+// version and boot config
+#define LIGHTOS_VERSION "lightOS v1.0a"
+// #define FASTBOOT
+
 // pin configuration (avoid pins 0 and 1)
 #define PIN_STRIP_1 6
 #define PIN_STRIP_2 7
@@ -28,6 +32,7 @@
 #define STRIP_2_LENGTH STRIP_LENGTH
 
 // strips
+#define NUM_STRIPS 2
 #define ID_STRIP_NULL 0x0 // TODO put this somewhere else
 #define ID_STRIP_1 0x1
 #define ID_STRIP_2 0x2
