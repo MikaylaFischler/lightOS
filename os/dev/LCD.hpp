@@ -50,56 +50,56 @@
 
 class LCD : public Print {
 private:
-	static void send(uint8_t, uint8_t);
-	static void write4bits(uint8_t);
-	static void write8bits(uint8_t);
-	static void pulseEnable();
+	void send(uint8_t, uint8_t);
+	void write4bits(uint8_t);
+	void write8bits(uint8_t);
+	void pulseEnable();
 
-	static uint8_t _rs_pin; 		// LOW: command.  HIGH: character.
-	static uint8_t _rw_pin; 		// LOW: write to LCD.  HIGH: read from LCD.
-	static uint8_t _enable_pin; 	// activated by a HIGH pulse.
-	static uint8_t _data_pins[8];
+	uint8_t _rs_pin; 		// LOW: command.  HIGH: character.
+	uint8_t _rw_pin; 		// LOW: write to LCD.  HIGH: read from LCD.
+	uint8_t _enable_pin; 	// activated by a HIGH pulse.
+	uint8_t _data_pins[8];
 
-	static uint8_t _displayfunction;
-	static uint8_t _displaycontrol;
-	static uint8_t _displaymode;
+	uint8_t _displayfunction;
+	uint8_t _displaycontrol;
+	uint8_t _displaymode;
 
-	static uint8_t _initialized;
+	uint8_t _initialized;
 
-	static uint8_t _numlines;
-	static uint8_t _row_offsets[4];
-
+	uint8_t _numlines;
+	uint8_t _row_offsets[4];
+public:
 	LCD(uint8_t rs, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7);
 	LCD(uint8_t rs, uint8_t rw, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7);
 	LCD(uint8_t rs, uint8_t rw, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3);
 	LCD(uint8_t rs, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3);
-public:
-	static void init(uint8_t fourbitmode, uint8_t rs, uint8_t rw, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
+
+	void init(uint8_t fourbitmode, uint8_t rs, uint8_t rw, uint8_t enable, uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
 				uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7);
 
-	static void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
+	void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
 
-	static void clear();
-	static void home();
+	void clear();
+	void home();
 
-	static void noDisplay();
-	static void display();
-	static void noBlink();
-	static void blink();
-	static void noCursor();
-	static void cursor();
-	static void scrollDisplayLeft();
-	static void scrollDisplayRight();
-	static void leftToRight();
-	static void rightToLeft();
-	static void autoscroll();
-	static void noAutoscroll();
+	void noDisplay();
+	void display();
+	void noBlink();
+	void blink();
+	void noCursor();
+	void cursor();
+	void scrollDisplayLeft();
+	void scrollDisplayRight();
+	void leftToRight();
+	void rightToLeft();
+	void autoscroll();
+	void noAutoscroll();
 
-	static void setRowOffsets(int row1, int row2, int row3, int row4);
-	static void createChar(uint8_t, uint8_t[]);
-	static void setCursor(uint8_t, uint8_t);
+	void setRowOffsets(int row1, int row2, int row3, int row4);
+	void createChar(uint8_t, uint8_t[]);
+	void setCursor(uint8_t, uint8_t);
 	virtual size_t write(uint8_t);
-	static void command(uint8_t);
+	void command(uint8_t);
 
 	using Print::write;
 };
