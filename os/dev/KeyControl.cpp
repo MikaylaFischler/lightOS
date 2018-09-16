@@ -1,10 +1,10 @@
 #include "KeyControl.hpp"
 
-static void KeyControl::init(void) {
+void KeyControl::init(void) {
 	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { keys[i] = 255; }
 }
 
-static bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
+bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	// range safety
 	if (key_type >= KEYCTRL_NUM_KEYS) { return false; }
 
@@ -40,24 +40,24 @@ static bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	return true;
 }
 
-static uint8_t KeyControl::getKeyState(void) { return key_state_mask & 0x0F; }
+uint8_t KeyControl::getKeyState(void) { return key_state_mask & 0x0F; }
 
-static void KeyControl::__key_esc_isr() {
-	key_state_mask << 4;
+void KeyControl::__key_esc_isr(void) {
+	key_state_mask <<= 4;
 	key_state_mask |= KEYCTRL_KEY_ESC;
 }
 
-static void KeyControl::__key_back_isr() {
-	key_state_mask << 4;
+void KeyControl::__key_back_isr(void) {
+	key_state_mask <<= 4;
 	key_state_mask |= KEYCTRL_KEY_BACK;
 }
 
-static void KeyControl::__key_sel_isr() {
-	key_state_mask << 4;
+void KeyControl::__key_sel_isr(void) {
+	key_state_mask <<= 4;
 	key_state_mask |= KEYCTRL_KEY_SELECT;
 }
 
-static void KeyControl::__key_next_isr() {
-	key_state_mask << 4;
+void KeyControl::__key_next_isr(void) {
+	key_state_mask <<= 4;
 	key_state_mask |= KEYCTRL_KEY_NEXT;
 }

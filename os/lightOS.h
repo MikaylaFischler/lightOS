@@ -10,6 +10,10 @@
 #include "sys/os.display.hpp"
 #include "sys/os.led_ctrl.hpp"
 
+// peripherals
+#include "dev/KeyControl.cpp"
+#include "dev/LCD.cpp"
+
 // boot
 #include "boot/boot.cpp"
 

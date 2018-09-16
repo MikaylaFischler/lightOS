@@ -8,14 +8,14 @@
 
 struct __ledstrips {
 	uint8_t num_strips;
-	Adafruit_NeoPixel** leds;
+	Adafruit_NeoPixel** strips;
 };
 
 typedef struct __ledstrips ledstrips_t;
 
 struct __peripherals {
 	KeyControl in;
-	LCD out;
+	LCD* out;
 	ledstrips_t* leds;
 };
 

@@ -33,10 +33,10 @@ public:
 
 	static uint8_t getKeyState(void);
 
-	static void __key_esc_isr();
-	static void __key_back_isr();
-	static void __key_sel_isr();
-	static void __key_next_isr();
+	static void __key_esc_isr(void);
+	static void __key_back_isr(void);
+	static void __key_sel_isr(void);
+	static void __key_next_isr(void);
 };
 
 #endif
