@@ -4,8 +4,6 @@
 #include "oscore.h"
 
 class os {
-protected:
-	static peripherals_t* peripherals;
 private:
 	static void __step_ui(peripherals_t* peripherals);
 	static void __step_display(peripherals_t* peripherals);
@@ -18,7 +16,7 @@ public:
 	class display;
 	class led_ctrl;
 
-	static void __attach(peripherals_t* peripherals);
+	static peripherals_t* dev;
 
 	static void step(void);
 	static void reboot(void);

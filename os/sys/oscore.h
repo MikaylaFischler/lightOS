@@ -21,16 +21,4 @@ struct __peripherals {
 
 typedef struct __peripherals peripherals_t;
 
-// must be AFTER peripherals_t definition
-#include "os.hpp"
-
-struct __instance {
-	os* sys;
-	peripherals_t* dev;
-};
-
-typedef struct __instance instance_t;
-
-instance_t* lightos_inst;
-
 #endif
