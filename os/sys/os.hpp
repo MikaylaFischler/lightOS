@@ -5,9 +5,9 @@
 
 class os {
 private:
-	static void __step_ui(peripherals_t* peripherals);
-	static void __step_display(peripherals_t* peripherals);
-	static void __step_leds(peripherals_t* peripherals);
+	static void __step_ui(void);
+	static void __step_display(void);
+	static void __step_leds(void);
 
 	os(void) {};
 	~os(void) {};

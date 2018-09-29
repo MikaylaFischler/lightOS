@@ -1,16 +1,12 @@
-#ifndef LIGHT_OS_BOOT_C_
-#define LIGHT_OS_BOOT_C_
-
 #include "boot.h"
 
-void boot(instance_t* instance) {
+void boot(void) {
 	// allocate device storage
 	os::dev = (peripherals_t*) calloc(sizeof(peripherals_t), 1);
 
 	// initialize LCD display
 	os::dev->out = new LCD(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
-	os::dev->out->begin(2, 16);
-	os::dev->out->clear();
+	os::display::init();
 
 	// begin output
 	os::dev->out->print(LIGHTOS_VERSION);
@@ -38,28 +34,28 @@ void boot(instance_t* instance) {
 	os::dev->out->print(">init input esc");
 	#endif
 	bool err = os::dev->in.attachKey(KEYCTRL_KEYTYPE_ESC, PIN_ESC_KEY);
-	if (err) { boot_fail(os::dev->out); }
+	if (err) { boot_fail(); }
 
 	#ifndef FASTBOOT
 	os::dev->out->setCursor(1, 0);
 	os::dev->out->print(">init input back");
 	#endif
 	err = os::dev->in.attachKey(KEYCTRL_KEYTYPE_BACK, PIN_BACK_KEY);
-	if (err) { boot_fail(os::dev->out); }
+	if (err) { boot_fail(); }
 
 	#ifndef FASTBOOT
 	os::dev->out->setCursor(1, 0);
 	os::dev->out->print(">init input sel");
 	#endif
 	err = os::dev->in.attachKey(KEYCTRL_KEYTYPE_SELECT, PIN_SEL_KEY);
-	if (err) { boot_fail(os::dev->out); }
+	if (err) { boot_fail(); }
 
 	#ifndef FASTBOOT
 	os::dev->out->setCursor(1, 0);
 	os::dev->out->print(">init input next");
 	#endif
 	err = os::dev->in.attachKey(KEYCTRL_KEYTYPE_NEXT, PIN_NEXT_KEY);
-	if (err) { boot_fail(os::dev->out); }
+	if (err) { boot_fail(); }
 
 	// initialize LEDs
 	#ifndef FASTBOOT
@@ -91,11 +87,9 @@ void boot(instance_t* instance) {
 	os::display::init();
 }
 
-void boot_fail(LCD* out) {
-	out->setCursor(0, 0);
-	out->print(">>BOOT  FAILED<<");
+void boot_fail(void) {
+	os::dev->out->setCursor(0, 0);
+	os::dev->out->print(">>BOOT  FAILED<<");
 	delay(250);
 	exit(1);
 }
-
-#endif

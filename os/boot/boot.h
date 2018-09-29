@@ -1,5 +1,9 @@
+#ifndef LIGHT_OS_BOOT_H_
+#define LIGHT_OS_BOOT_H_
 
 #include "../../conf/config.h"
 
-void boot(instance_t* instance);
-void boot_fail(LCD* out);
+void boot(void);
+void boot_fail(void);
+
+#endif

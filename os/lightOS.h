@@ -3,11 +3,11 @@
 
 // OS core
 #include "sys/oscore.h"
-#include "sys/os.hpp"
+#include "sys/os.cpp"
 
 // OS modules
 #include "sys/os.ui.hpp"
-#include "sys/os.display.hpp"
+#include "sys/os.display.cpp"
 #include "sys/os.led_ctrl.hpp"
 
 // peripherals
