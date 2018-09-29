@@ -82,9 +82,9 @@ void boot(void) {
 	os::dev->leds->strips[1]->begin();
 	os::dev->leds->strips[1]->show();
 
-	// setup os modules
+	// setup remaining os modules
 	os::ui::init();
-	os::display::init();
+	os::led_ctrl::init();
 }
 
 void boot_fail(void) {

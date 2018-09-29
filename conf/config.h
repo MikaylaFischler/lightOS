@@ -33,7 +33,6 @@
 
 // strips
 #define NUM_STRIPS 2
-#define ID_STRIP_NULL 0x0 // TODO put this somewhere else
 #define ID_STRIP_1 0x1
 #define ID_STRIP_2 0x2
 

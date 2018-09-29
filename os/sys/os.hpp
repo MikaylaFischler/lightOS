@@ -6,8 +6,6 @@
 class os {
 private:
 	static void __step_ui(void);
-	static void __step_display(void);
-	static void __step_leds(void);
 
 	os(void) {};
 	~os(void) {};
