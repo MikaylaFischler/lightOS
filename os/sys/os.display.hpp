@@ -1,16 +1,18 @@
 #ifndef LIGHT_OS_DISPLAY_H_
 #define LIGHT_OS_DISPLAY_H_
 
+#include <string.h>
 #include "os.hpp"
+#include "../dev/LCD.hpp"
 
 #define DISP_CMD_PRINT_C 0x08	// character print
 #define DISP_CMD_PRINT_I 0x09	// integer print
 #define DISP_CMD_PRINT_L 0x0A	// long integer print
 #define DISP_CMD_PRINT_S 0x0C	// string print
 
-#define DISP_CMD_CURSOR 0x10
-#define DISP_CMD_HOME 	0x20
-#define DISP_CMD_CLEAR	0x80
+#define DISP_CMD_CURSOR 0x10	// set the cursor
+#define DISP_CMD_HOME 	0x20	// set home
+#define DISP_CMD_CLEAR	0x80	// clear display (and home)
 
 class os::display {
 private:
@@ -22,7 +24,10 @@ private:
 		struct os::display::cmd_t* next;
 	};
 
-	static struct os::display::cmd_t* cmd_queue;
+	typedef struct os::display::cmd_t cmd_t;
+	static cmd_t* cmd_queue;
+
+	static void __queue_cmd(uint8_t command, void* data, size_t size, uint8_t base);
 
 	display(void) {};
 	~display(void) {};
@@ -33,7 +38,7 @@ public:
 	static void print(char data, uint8_t base);
 	static void print(int data,  uint8_t base);
 	static void print(long data, uint8_t base);
-	static void print(char* string);
+	static void print(char* data);
 
 	static void setCursor(uint8_t column, uint8_t row);
 	static void home(void);
