@@ -41,6 +41,7 @@ bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 }
 
 uint8_t KeyControl::getKeyState(void) { return key_state_mask & 0x0F; }
+uint8_t KeyControl::getLastKeyState(void) { return (key_state_mask & 0xF0) >> 4; }
 
 void KeyControl::__key_esc_isr(void) {
 	key_state_mask <<= 4;

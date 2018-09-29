@@ -32,6 +32,7 @@ public:
 	static bool attachKey(uint8_t key_type, uint8_t key_port);
 
 	static uint8_t getKeyState(void);
+	static uint8_t getLastKeyState(void);
 
 	static void __key_esc_isr(void);
 	static void __key_back_isr(void);
