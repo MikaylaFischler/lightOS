@@ -15,6 +15,7 @@ void os::display::init(void) {
 void os::display::update(void) {
 	if (cmd_queue) {
 		cmd_t* cmd = cmd_queue;
+		uint8_t* tmp = NULL;
 		cmd_queue = cmd_queue->next;
 
 		switch (cmd->command) {
@@ -31,7 +32,7 @@ void os::display::update(void) {
 				os::dev->out->print((char*) cmd->data);
 			break;
 			case DISP_CMD_CURSOR:
-				uint8_t* tmp = (uint8_t*) cmd->data;
+				tmp = (uint8_t*) cmd->data;
 				os::dev->out->setCursor(tmp[0], tmp[1]);
 			break;
 			case DISP_CMD_HOME:
