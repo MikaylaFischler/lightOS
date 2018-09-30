@@ -6,9 +6,9 @@
 #include "sys/os.cpp"
 
 // OS modules
-#include "sys/os.ui.hpp"
+#include "sys/os.ui.cpp"
 #include "sys/os.display.cpp"
-#include "sys/os.led_ctrl.hpp"
+#include "sys/os.led_ctrl.cpp"
 
 // peripherals
 #include "dev/KeyControl.cpp"

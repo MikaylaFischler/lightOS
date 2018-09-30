@@ -23,16 +23,18 @@ public:
 	static void run(uint8_t anim_id);
 	static void update(void);
 
-	static void registerAnimation(void (*anim)(Adafruit_NeoPixel**), uint8_t anim_id);
+	static void registerAnimation(void (*anim)(Adafruit_NeoPixel**), uint8_t anim_id, uint8_t num_strips, uint8_t* strip_req);
 	static RegisteredAnimation* getAnimationList(void);
+	static uint8_t getAnimationCount(void);
 private:
 	static RegisteredAnimation* running[NUM_STRIPS];
 	static RegisteredAnimation* registry_head;
 	static RegisteredAnimation* registry_tail;
 
+	static uint8_t anim_count;
 	static uint8_t cur_run;
 
-	static RegisteredAnimation* search_registry(uint8_t id);
+	static RegisteredAnimation* search_registry(uint8_t id, RegisteredAnimation*);
 
 	led_ctrl(void);
 	~led_ctrl(void);

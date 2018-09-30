@@ -22,7 +22,6 @@
  */
 class KeyControl {
 private:
-	static volatile uint8_t key_state_mask;
 	static uint8_t keys[KEYCTRL_NUM_KEYS];
 
 	KeyControl() {};
@@ -31,8 +30,12 @@ public:
 	static void init(void);
 	static bool attachKey(uint8_t key_type, uint8_t key_port);
 
+	// alternate way of reading (in comparison to exposed variable)
 	static uint8_t getKeyState(void);
 	static uint8_t getLastKeyState(void);
+
+	// public for ISRs
+	static volatile uint8_t key_state_mask;
 
 	static void __key_esc_isr(void);
 	static void __key_back_isr(void);

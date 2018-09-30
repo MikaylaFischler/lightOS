@@ -31,6 +31,9 @@ void os::display::update(void) {
 			case DISP_CMD_PRINT_S:
 				os::dev->out->print((char*) cmd->data);
 			break;
+			case DISP_CMD_PRINT_F:
+				os::dev->out->print((const __FlashStringHelper*) cmd->data);
+			break;
 			case DISP_CMD_CURSOR:
 				tmp = (uint8_t*) cmd->data;
 				os::dev->out->setCursor(tmp[0], tmp[1]);
@@ -84,6 +87,10 @@ void os::display::print(char* data) {
 	void* _data = (void*) string;
 
 	__queue_cmd(DISP_CMD_PRINT_S, _data, size, 0);
+}
+
+void os::display::print(const __FlashStringHelper* data) {
+	__queue_cmd(DISP_CMD_PRINT_F, data, 0, 0);
 }
 
 void os::display::setCursor(uint8_t column, uint8_t row) {
