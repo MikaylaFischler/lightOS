@@ -3,21 +3,11 @@
 
 #include "oscore.h"
 
-class os {
-private:
-	static void __step_ui(void);
+namespace os {
+	peripherals_t* dev;
 
-	os(void) {};
-	~os(void) {};
-public:
-	class ui;
-	class display;
-	class led_ctrl;
-
-	static peripherals_t* dev;
-
-	static void step(void);
-	static void reboot(void);
+	void step(void);
+	void reboot(void);
 };
 
 #endif

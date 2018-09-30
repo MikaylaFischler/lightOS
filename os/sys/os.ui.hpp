@@ -36,40 +36,38 @@
 
 #define SLEEP__ON			1
 
-class os::ui {
-private:
-	static void step(uint8_t command);
-	static void spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*));
+namespace os {
+	namespace ui {
+		static void step(uint8_t command);
+		static void spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*));
 
-	static void __root(uint8_t* state, uint8_t* prev);				// tier 0
-	static void __status(uint8_t* state, uint8_t* prev);			// tier 1
-	static void __anim_select(uint8_t* state, uint8_t* prev);		// tier 1
-	static void __anim_strip_select(uint8_t* state, uint8_t* prev);	// tier 2
-	static void __config(uint8_t* state, uint8_t* prev);			// tier 1
-	static void __conf_brightness(uint8_t* state, uint8_t* prev);	// tier 2
-	static void __sleep(uint8_t* state, uint8_t* prev);				// tier 1
+		static void __root(uint8_t* state, uint8_t* prev);				// tier 0
+		static void __status(uint8_t* state, uint8_t* prev);			// tier 1
+		static void __anim_select(uint8_t* state, uint8_t* prev);		// tier 1
+		static void __anim_strip_select(uint8_t* state, uint8_t* prev);	// tier 2
+		static void __config(uint8_t* state, uint8_t* prev);			// tier 1
+		static void __conf_brightness(uint8_t* state, uint8_t* prev);	// tier 2
+		static void __sleep(uint8_t* state, uint8_t* prev);				// tier 1
 
-	struct ui_state_t {
-		uint8_t state;
-		uint8_t prev_state;
-		void (*handler)(uint8_t*,uint8_t*);
-		struct os::ui::ui_state_t* parent;
+		struct ui_state_t {
+			uint8_t state;
+			uint8_t prev_state;
+			void (*handler)(uint8_t*,uint8_t*);
+			struct os::ui::ui_state_t* parent;
+		};
+
+		typedef struct os::ui::ui_state_t ui_state_t;
+		static ui_state_t* ui_stack;
+		static uint8_t input;
+
+		static void init(void);
+		static void update(void);
+
+		static void stepOut(void);
+		static void stepPrev(void);
+		static void stepNext(void);
+		static void select(void);
 	};
-
-	typedef struct os::ui::ui_state_t ui_state_t;
-	static ui_state_t* ui_stack;
-	static uint8_t input;
-
-	ui(void) {};
-	~ui(void) {};
-public:
-	static void init(void);
-	static void update(void);
-
-	static void stepOut(void);
-	static void stepPrev(void);
-	static void stepNext(void);
-	static void select(void);
 };
 
 #endif
