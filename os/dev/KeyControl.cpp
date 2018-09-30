@@ -1,6 +1,10 @@
 #include "KeyControl.hpp"
 
+volatile uint8_t KeyControl::key_state_mask = 0;
+uint8_t* KeyControl::keys = NULL;
+
 void KeyControl::init(void) {
+	keys = (uint8_t*) malloc(sizeof(uint8_t) * KEYCTRL_NUM_KEYS);
 	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { keys[i] = 255; }
 }
 
