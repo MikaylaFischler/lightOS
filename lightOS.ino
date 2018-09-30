@@ -4,4 +4,4 @@
 
 void setup() { boot(); }
 
-void loop() {}
+void loop() { os::step(); }
