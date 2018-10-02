@@ -29,7 +29,7 @@ private:
 	~KeyControl() {};
 public:
 	static void init(void);
-	static bool attachKey(uint8_t key_type, uint8_t key_port);
+	static uint8_t attachKey(uint8_t key_type, uint8_t key_port);
 
 	// alternate way of reading (in comparison to exposed variable)
 	static uint8_t getKeyState(void);

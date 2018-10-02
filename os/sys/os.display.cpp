@@ -5,7 +5,7 @@
  */
 void os::display::init(void) {
 	// initialize the LCD
-	os::dev->out->begin(2, 16);
+	os::dev->out->begin(16, 2);
 	os::dev->out->clear();
 
 	// null the command queue

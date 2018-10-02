@@ -8,9 +8,9 @@ void KeyControl::init(void) {
 	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { keys[i] = 255; }
 }
 
-bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
+uint8_t KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	// range safety
-	if (key_type >= KEYCTRL_NUM_KEYS) { return false; }
+	if (key_type >= KEYCTRL_NUM_KEYS) { return 1; }
 
 	// set the pin to input pullup
 	pinMode(key_port, INPUT_PULLUP);
@@ -22,7 +22,7 @@ bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	uint32_t __interrupt = digitalPinToInterrupt(key_port);
 
 	// did we already use this?
-	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { if (keys[i] == __interrupt) { return false; } }
+	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { if (keys[i] == __interrupt) { return 2; } }
 
 	// set up the interrupt service routine
 	switch (key_type) {
@@ -41,7 +41,7 @@ bool KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	}
 
 	keys[key_type] = __interrupt;
-	return true;
+	return 0;
 }
 
 uint8_t KeyControl::getKeyState(void) { return key_state_mask & 0x0F; }
