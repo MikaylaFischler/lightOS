@@ -34,6 +34,7 @@ public:
 	// alternate way of reading (in comparison to exposed variable)
 	static uint8_t getKeyState(void);
 	static uint8_t getLastKeyState(void);
+	static void clearKeys(void);
 
 	static void __key_esc_isr(void);
 	static void __key_back_isr(void);
