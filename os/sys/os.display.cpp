@@ -1,5 +1,5 @@
 #include "os.display.hpp"
-
+int flag = 0;
 /**
  * Initialize the LCD and display system.
  */
@@ -10,13 +10,27 @@ void os::display::init(void) {
 
 	// null the command queue
 	cmd_queue = NULL;
+	cmd_queue_tail = NULL;
 }
 
 void os::display::update(void) {
 	if (cmd_queue) {
 		cmd_t* cmd = cmd_queue;
 		uint8_t* tmp = NULL;
-		cmd_queue = cmd_queue->next;
+
+		#ifdef DEBUG
+		Serial.println(">> os::display::update");
+		Serial.print("HEAD @ 0x");
+		Serial.println((uintptr_t) cmd_queue, HEX);
+		Serial.print("TAIL @ 0x");
+		Serial.println((uintptr_t) cmd_queue_tail, HEX);
+		Serial.print("Running command @ 0x");
+		Serial.println((uintptr_t) cmd, HEX);
+		Serial.print("Containing Data at @ 0x");
+		Serial.println((uintptr_t) cmd->data, HEX);
+		#endif
+
+		cmd_queue = cmd->next;
 
 		switch (cmd->command) {
 			case DISP_CMD_PRINT_C:
@@ -45,10 +59,27 @@ void os::display::update(void) {
 				os::dev->out->clear();
 			break;
 		}
+
+		#ifdef DEBUG
+		Serial.print("HEAD @ 0x");
+		Serial.println((uintptr_t) cmd_queue, HEX);
+		Serial.print("TAIL @ 0x");
+		Serial.println((uintptr_t) cmd_queue_tail, HEX);
+		#endif
+
+		free(cmd->data);
+		free(cmd);
+
+		#ifdef DEBUG
+		Serial.print("Free'd @ 0x");
+		Serial.println((uintptr_t) cmd, HEX);
+		#endif
+
+		cmd = NULL;
 	}
 }
 
-void os::display::print(char data, uint8_t base = DEC) {
+void os::display::print(char data, uint8_t base) {
 	size_t size = sizeof(char);
 	char* val = (char*) malloc(size);
 	val[0] = data;
@@ -58,7 +89,7 @@ void os::display::print(char data, uint8_t base = DEC) {
 	__queue_cmd(DISP_CMD_PRINT_C, _data, size, base);
 }
 
-void os::display::print(int data, uint8_t base = DEC) {
+void os::display::print(int data, uint8_t base) {
 	size_t size = sizeof(int);
 	int* val = (int*) malloc(size);
 	val[0] = data;
@@ -68,7 +99,7 @@ void os::display::print(int data, uint8_t base = DEC) {
 	__queue_cmd(DISP_CMD_PRINT_I, _data, size, base);
 }
 
-void os::display::print(long data, uint8_t base = DEC) {
+void os::display::print(long data, uint8_t base) {
 	size_t size = sizeof(long);
 	long* val = (long*) malloc(size);
 	val[0] = data;
@@ -117,9 +148,31 @@ void os::display::__queue_cmd(uint8_t command, void* data, size_t size, uint8_t 
 	cmd->data = data;
 	cmd->next = NULL;
 
+	#ifdef DEBUG
+	Serial.println(">> os::display::__queue_cmd");
+	Serial.print("HEAD @ 0x");
+	Serial.println((uintptr_t) cmd_queue, HEX);
+
+	Serial.print("TAIL @ 0x");
+	Serial.println((uintptr_t) cmd_queue_tail, HEX);
+
+	Serial.print("Queueing command @ 0x");
+	Serial.println((uintptr_t) cmd, HEX);
+	#endif
+
 	if (cmd_queue) {
-		cmd_queue->next = cmd;
+		cmd_queue_tail->next = cmd;
+		cmd_queue_tail = cmd;
 	} else {
 		cmd_queue = cmd;
+		cmd_queue_tail = cmd;
 	}
+
+	#ifdef DEBUG
+	Serial.print("HEAD @ 0x");
+	Serial.println((uintptr_t) cmd_queue, HEX);
+
+	Serial.print("TAIL @ 0x");
+	Serial.println((uintptr_t) cmd_queue_tail, HEX);
+	#endif
 }

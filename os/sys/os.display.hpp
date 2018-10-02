@@ -26,22 +26,23 @@ namespace os {
 		};
 
 		typedef struct os::display::cmd_t cmd_t;
-		static cmd_t* cmd_queue;
+		cmd_t* cmd_queue;
+		cmd_t* cmd_queue_tail;
 
-		static void __queue_cmd(uint8_t command, void* data, size_t size, uint8_t base);
+		void __queue_cmd(uint8_t command, void* data, size_t size, uint8_t base);
 
-		static void init(void);
-		static void update(void);
+		void init(void);
+		void update(void);
 
-		static void print(char data, uint8_t base);
-		static void print(int data,  uint8_t base);
-		static void print(long data, uint8_t base);
-		static void print(char* data);
-		static void print(const __FlashStringHelper* data);
+		void print(char data, uint8_t base = DEC);
+		void print(int data,  uint8_t base = DEC);
+		void print(long data, uint8_t base = DEC);
+		void print(char* data);
+		void print(const __FlashStringHelper* data);
 
-		static void setCursor(uint8_t column, uint8_t row);
-		static void home(void);
-		static void clear(void);
+		void setCursor(uint8_t column, uint8_t row);
+		void home(void);
+		void clear(void);
 	};
 };
 
