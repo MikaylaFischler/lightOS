@@ -2,8 +2,9 @@
 #define CONFIG_H_
 
 // version and boot config
-#define LIGHTOS_VERSION "lightOS v1.0.2a"
+#define LIGHTOS_VERSION "lightOS v1.0.3a"
 // #define FASTBOOT
+#define DEBUG
 
 // pin configuration (avoid pins 0 and 1)
 #define PIN_STRIP_1 6
@@ -27,7 +28,7 @@
 #define STRIP_TYPE_RGB NEO_GRB + NEO_KHZ800
 
 // dimensions
-#define STRIP_LENGTH 19
+#define STRIP_LENGTH 29
 #define STRIP_1_LENGTH STRIP_LENGTH
 #define STRIP_2_LENGTH STRIP_LENGTH
 
