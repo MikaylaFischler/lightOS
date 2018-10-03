@@ -16,7 +16,8 @@
 	 |- anim_select
 	 ||- strip_select
 	 |- config
-	 ||- conf_brightness
+	 ||- strip specific (select)
+	 |||- brightness
 	 |- sleep
 */
 
@@ -32,32 +33,39 @@
 #define ASEL__FIRST			0x1
 #define ASEL__LAST			(os::led_ctrl::getAnimationCount())
 
-#define CONFIG__BRIGHTNESS	1
+#define CONFIG__SYSTEM		1
+#define CONFIG__STRIP		2
+#define CONFIG__S_SEL		1
+#define CONFIG__S_BRIGHT	1
 
 #define SLEEP__ON			1
 
 namespace os {
 	namespace ui {
-		static void spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*));
+		static void spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*,uint16_t*), uint16_t data = 0);
+		static void esc(void);
 
-		static void __root(uint8_t* state, uint8_t* prev);				// tier 0
-		static void __status(uint8_t* state, uint8_t* prev);			// tier 1
-		static void __anim_select(uint8_t* state, uint8_t* prev);		// tier 1
-		static void __anim_strip_select(uint8_t* state, uint8_t* prev);	// tier 2
-		static void __config(uint8_t* state, uint8_t* prev);			// tier 1
-		static void __conf_brightness(uint8_t* state, uint8_t* prev);	// tier 2
-		static void __sleep(uint8_t* state, uint8_t* prev);				// tier 1
+		static void __root(uint8_t* state, uint8_t* prev, uint16_t* data);					// tier 0
+		static void __status(uint8_t* state, uint8_t* prev, uint16_t* data);				// tier 1
+		static void __anim_select(uint8_t* state, uint8_t* prev, uint16_t* data);			// tier 1
+		static void __anim_strip_select(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 2
+		static void __config(uint8_t* state, uint8_t* prev, uint16_t* data);				// tier 1
+		static void __config_strip_select(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
+		static void __config_brightness(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 3
+		static void __sleep(uint8_t* state, uint8_t* prev, uint16_t* data);					// tier 1
 
 		struct ui_state_t {
 			uint8_t state;
 			uint8_t prev_state;
-			void (*handler)(uint8_t*,uint8_t*);
+			uint16_t data;
+			void (*handler)(uint8_t*,uint8_t*,uint16_t*);
 			struct os::ui::ui_state_t* parent;
 		};
 
 		typedef struct os::ui::ui_state_t ui_state_t;
 		static ui_state_t* ui_stack;
 		static uint8_t input;
+		static uint8_t first_call;
 
 		static void init(void);
 		static void update(void);

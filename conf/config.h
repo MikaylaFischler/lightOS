@@ -2,7 +2,7 @@
 #define CONFIG_H_
 
 // version and boot config
-#define LIGHTOS_VERSION "lightOS v1.1.0a"
+#define LIGHTOS_VERSION "lightOS v1.2.0a"
 // #define FASTBOOT
 #define DEBUG
 #define DEBUG_VERBOSE
