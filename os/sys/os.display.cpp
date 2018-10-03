@@ -18,7 +18,7 @@ void os::display::update(void) {
 		cmd_t* cmd = cmd_queue;
 		uint8_t* tmp = NULL;
 
-		#ifdef DEBUG
+		#ifdef DEBUG_VERBOSE
 		Serial.println(">> os::display::update");
 		Serial.print("HEAD @ 0x");
 		Serial.println((uintptr_t) cmd_queue, HEX);
@@ -35,15 +35,19 @@ void os::display::update(void) {
 		switch (cmd->command) {
 			case DISP_CMD_PRINT_C:
 				os::dev->out->print(((char*) cmd->data)[0], cmd->base);
+				free(cmd->data);
 			break;
 			case DISP_CMD_PRINT_I:
 				os::dev->out->print(((int*) cmd->data)[0], cmd->base);
+				free(cmd->data);
 			break;
 			case DISP_CMD_PRINT_L:
 				os::dev->out->print(((long*) cmd->data)[0], cmd->base);
+				free(cmd->data);
 			break;
 			case DISP_CMD_PRINT_S:
 				os::dev->out->print((char*) cmd->data);
+				free(cmd->data);
 			break;
 			case DISP_CMD_PRINT_F:
 				os::dev->out->print((const __FlashStringHelper*) cmd->data);
@@ -51,6 +55,7 @@ void os::display::update(void) {
 			case DISP_CMD_CURSOR:
 				tmp = (uint8_t*) cmd->data;
 				os::dev->out->setCursor(tmp[0], tmp[1]);
+				free(cmd->data);
 			break;
 			case DISP_CMD_HOME:
 				os::dev->out->home();
@@ -60,17 +65,16 @@ void os::display::update(void) {
 			break;
 		}
 
-		#ifdef DEBUG
+		#ifdef DEBUG_VERBOSE
 		Serial.print("HEAD @ 0x");
 		Serial.println((uintptr_t) cmd_queue, HEX);
 		Serial.print("TAIL @ 0x");
 		Serial.println((uintptr_t) cmd_queue_tail, HEX);
 		#endif
 
-		free(cmd->data);
 		free(cmd);
 
-		#ifdef DEBUG
+		#ifdef DEBUG_VERBOSE
 		Serial.print("Free'd @ 0x");
 		Serial.println((uintptr_t) cmd, HEX);
 		#endif
@@ -121,7 +125,7 @@ void os::display::print(char* data) {
 }
 
 void os::display::print(const __FlashStringHelper* data) {
-	__queue_cmd(DISP_CMD_PRINT_F, data, 0, 0);
+	__queue_cmd(DISP_CMD_PRINT_F, (void*) data, 0, 0);
 }
 
 void os::display::setCursor(uint8_t column, uint8_t row) {
@@ -148,7 +152,7 @@ void os::display::__queue_cmd(uint8_t command, void* data, size_t size, uint8_t 
 	cmd->data = data;
 	cmd->next = NULL;
 
-	#ifdef DEBUG
+	#ifdef DEBUG_VERBOSE
 	Serial.println(">> os::display::__queue_cmd");
 	Serial.print("HEAD @ 0x");
 	Serial.println((uintptr_t) cmd_queue, HEX);
@@ -168,7 +172,7 @@ void os::display::__queue_cmd(uint8_t command, void* data, size_t size, uint8_t 
 		cmd_queue_tail = cmd;
 	}
 
-	#ifdef DEBUG
+	#ifdef DEBUG_VERBOSE
 	Serial.print("HEAD @ 0x");
 	Serial.println((uintptr_t) cmd_queue, HEX);
 
