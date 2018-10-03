@@ -38,7 +38,6 @@
 
 namespace os {
 	namespace ui {
-		static void step(uint8_t command);
 		static void spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*));
 
 		static void __root(uint8_t* state, uint8_t* prev);				// tier 0

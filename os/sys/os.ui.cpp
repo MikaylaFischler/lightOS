@@ -11,18 +11,20 @@ void os::ui::init(void) {
 	input = UI_INPUT_IDLE;
 }
 
-void os::ui::update(void) { ui_stack->handler(&(ui_stack->state), &(ui_stack->prev_state)); }
+void os::ui::update(void) {
+	#ifdef DEBUG_VERBOSE
+	// Serial.print("Input State: ");
+	// Serial.println(input, HEX);
+	#endif
 
-void os::ui::stepOut(void) { step(UI_STEP_OUT); }
-void os::ui::stepPrev(void) { step(UI_STEP_PREV); }
-void os::ui::stepNext(void) { step(UI_STEP_NEXT); }
-void os::ui::select(void) { step(UI_SELECT); }
-
-void os::ui::step(uint8_t command) {
-	input = command;
-	update();
+	ui_stack->handler(&(ui_stack->state), &(ui_stack->prev_state));
 	input = UI_INPUT_IDLE;
 }
+
+void os::ui::stepOut(void) { input = UI_STEP_OUT; }
+void os::ui::stepPrev(void) { input = UI_STEP_PREV; }
+void os::ui::stepNext(void) { input = UI_STEP_NEXT; }
+void os::ui::select(void) { input = UI_SELECT; }
 
 void os::ui::spawn_child(uint8_t state, void (*handler)(uint8_t*,uint8_t*)) {
 	ui_state_t* new_iface = (ui_state_t*) malloc(sizeof(ui_state_t));
@@ -37,10 +39,13 @@ void os::ui::__root(uint8_t* state, uint8_t* prev) {
 	if ((*state) != (*prev) || input) {
 		switch (*state) {
 			case ROOT__STATUS: // root home screen (select for status)
-				os::display::clear();
-				os::display::print(F("--- light OS ---"));
-				os::display::setCursor(1, 0);
-				os::display::print(F("<-  Status  ->"));
+				if ((*state) != (*prev)) {
+					os::display::clear();
+					os::display::print(F("[-- light OS --]"));
+					os::display::setCursor(0, 1);
+					os::display::print(F("<-   Status   ->"));
+					prev[0] = *state;
+				}
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to status display
@@ -59,8 +64,11 @@ void os::ui::__root(uint8_t* state, uint8_t* prev) {
 				}
 				break;
 			case ROOT__ANIM_SELECT: // root animation selection mode
-				os::display::setCursor(1, 0);
-				os::display::print(F("<- AnimSelect ->"));
+				if ((*state) != (*prev)) {
+					os::display::setCursor(0, 1);
+					os::display::print(F("<- AnimSelect ->"));
+					prev[0] = *state;
+				}
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to animation selection
@@ -79,8 +87,11 @@ void os::ui::__root(uint8_t* state, uint8_t* prev) {
 				}
 				break;
 			case ROOT__CONFIG: // root config mode
-				os::display::setCursor(1, 0);
-				os::display::print(F("<-   Config   ->"));
+				if ((*state) != (*prev)) {
+					os::display::setCursor(0, 1);
+					os::display::print(F("<-   Config   ->"));
+					prev[0] = *state;
+				}
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to config
@@ -99,8 +110,11 @@ void os::ui::__root(uint8_t* state, uint8_t* prev) {
 				}
 				break;
 			case ROOT__SLEEP: // root sleep mode
-				os::display::setCursor(1, 0);
-				os::display::print(F("<-   Sleep    ->"));
+				if ((*state) != (*prev)) {
+					os::display::setCursor(0, 1);
+					os::display::print(F("<-   Sleep    ->"));
+					prev[0] = *state;
+				}
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to sleep mode
