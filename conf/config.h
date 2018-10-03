@@ -2,9 +2,10 @@
 #define CONFIG_H_
 
 // version and boot config
-#define LIGHTOS_VERSION "lightOS v1.0.3a"
+#define LIGHTOS_VERSION "lightOS v1.1.0a"
 // #define FASTBOOT
 #define DEBUG
+#define DEBUG_VERBOSE
 
 // pin configuration (avoid pins 0 and 1)
 #define PIN_STRIP_1 6

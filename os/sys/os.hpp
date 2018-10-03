@@ -5,9 +5,10 @@
 
 namespace os {
 	peripherals_t* dev;
+	uint8_t last_processed_input = 0;
 
 	void step(void);
-	void reboot(void);
+	void process_input(void);
 };
 
 #endif
