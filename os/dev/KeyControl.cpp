@@ -8,6 +8,11 @@ void KeyControl::init(void) {
 	for (int i = 0; i < KEYCTRL_NUM_KEYS; i++) { keys[i] = 255; }
 }
 
+void KeyControl::start(void) {
+	Timer1.initialize(75000); // interrupt every 75ms
+	Timer1.attachInterrupt(KeyControl::__shift_isr);
+}
+
 uint8_t KeyControl::attachKey(uint8_t key_type, uint8_t key_port) {
 	// range safety
 	if (key_type >= KEYCTRL_NUM_KEYS) { return 1; }
@@ -50,21 +55,24 @@ uint8_t KeyControl::getLastKeyState(void) { return (key_state_mask & 0xF0) >> 4;
 void KeyControl::clearKeys(void) { key_state_mask = 0; }
 
 void KeyControl::__key_esc_isr(void) {
-	key_state_mask <<= 4;
+	key_state_mask &= 0xF0;
 	key_state_mask |= KEYCTRL_KEY_ESC;
 }
 
 void KeyControl::__key_back_isr(void) {
-	key_state_mask <<= 4;
+	key_state_mask &= 0xF0;
 	key_state_mask |= KEYCTRL_KEY_BACK;
 }
 
 void KeyControl::__key_sel_isr(void) {
-	key_state_mask <<= 4;
+	key_state_mask &= 0xF0;
 	key_state_mask |= KEYCTRL_KEY_SELECT;
 }
 
 void KeyControl::__key_next_isr(void) {
-	key_state_mask <<= 4;
+	key_state_mask &= 0xF0;
 	key_state_mask |= KEYCTRL_KEY_NEXT;
 }
+
+
+void KeyControl::__shift_isr(void) { key_state_mask <<= 4; }

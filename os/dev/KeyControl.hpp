@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <inttypes.h>
+#include "TimerOne.h"
 
 #define KEYCTRL_NUM_KEYS 4
 
@@ -17,8 +18,10 @@
 #define KEYCTRL_KEY_NEXT 0x8
 
 /*!
- * TODO debounce ISRs to make this correct
- * @note One press worth of history is kept (in the high four bits).
+ *
+ * @note Debouncing is done by storing the last press every 50ms,
+ *	zeroing the current key state.
+ *  One press worth of history is kept (in the high four bits).
  */
 class KeyControl {
 private:
@@ -29,6 +32,7 @@ private:
 	~KeyControl() {};
 public:
 	static void init(void);
+	static void start(void);
 	static uint8_t attachKey(uint8_t key_type, uint8_t key_port);
 
 	// alternate way of reading (in comparison to exposed variable)
@@ -40,6 +44,8 @@ public:
 	static void __key_back_isr(void);
 	static void __key_sel_isr(void);
 	static void __key_next_isr(void);
+
+	static void __shift_isr(void);
 };
 
 #endif
