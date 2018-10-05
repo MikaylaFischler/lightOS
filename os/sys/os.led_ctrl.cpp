@@ -23,7 +23,7 @@ void os::led_ctrl::run(uint8_t anim_id) {
 
 void os::led_ctrl::update(void) {
 	RegisteredAnimation* current = running[cur_run];
-	current->anim(&(os::dev->leds->strips[cur_run]));
+	if (current) { current->anim(&(os::dev->leds->strips[cur_run])); }
 
 	if (++cur_run > os::dev->leds->num_strips) { cur_run = 0; }
 }
