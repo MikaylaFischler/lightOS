@@ -26,8 +26,8 @@ void os::ui::__anim_cat_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
 					// scroll to the next option
 					state[0] = ASEL__CAT_FADE;
 				} else if (input & KEYCTRL_KEY_BACK) {
-					// scroll to the prev option
-					state[0] = ASEL__CAT_SPECIAL;
+					// scroll to the prev option (skip special for now)
+					state[0] = ASEL__CAT_RAINBOW;
 				} else if (input & KEYCTRL_KEY_ESC) { esc(); }
 				break;
 			case ASEL__CAT_FADE:
@@ -92,7 +92,7 @@ void os::ui::__anim_cat_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
 					spawn_child(ASEL__RAINBOW_FIRST, __anim_select_rainbow);
 				} else if (input & KEYCTRL_KEY_NEXT) {
 					// scroll to the next option (skip special until implemented)
-					state[0] = ASEL__CAT_RAINBOW;
+					state[0] = ASEL__CAT_COLOR;
 				} else if (input & KEYCTRL_KEY_BACK) {
 					// scroll to the prev option
 					state[0] = ASEL__CAT_SPARKLE;

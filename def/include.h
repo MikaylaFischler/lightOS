@@ -4,5 +4,6 @@
 // animations
 #include "animations.cpp"
 #include "anim_color.cpp"
+#include "anim_fade.cpp"
 
 #endif

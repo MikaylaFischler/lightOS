@@ -11,11 +11,6 @@ void os::step(void) {
 	ui::update();
 	display::update();
 	led_ctrl::update();
-
-	#ifdef DEBUG
-	Serial.print(F("Free Memory: "));
-	Serial.println(freeMemory());
-	#endif
 }
 
 void os::process_input(void) {
@@ -44,7 +39,9 @@ void os::process_input(void) {
 				break;
 		}
 
-		#ifdef DEBUG_VERBOSE
+		#ifdef DEBUG
+		Serial.print(F("Free Memory: "));
+		Serial.println(freeMemory());
 		Serial.print(F("KEY PRESSED: "));
 		Serial.println(input, HEX);
 		#endif

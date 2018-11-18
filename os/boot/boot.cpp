@@ -259,6 +259,7 @@ void boot_fail(void) {
 }
 
 void register_animations(void) {
+	// basic color animations
 	os::led_ctrl::registerAnimation(anim__white, ANIMATION_WHITE, F("<-   White    ->"));
 	os::led_ctrl::registerAnimation(anim__soft_white, ANIMATION_SOFT_WHITE, F("<- Soft White ->"));
 	os::led_ctrl::registerAnimation(anim__red, ANIMATION_RED, F("<-    Red     ->"));
@@ -268,4 +269,15 @@ void register_animations(void) {
 	os::led_ctrl::registerAnimation(anim__blu, ANIMATION_BLUE, F("<-    Blue    ->"));
 	os::led_ctrl::registerAnimation(anim__prp, ANIMATION_PURPLE, F("<-   Purple   ->"));
 	os::led_ctrl::registerAnimation(anim__pnk, ANIMATION_PINK, F("<-    Pink    ->"));
+
+	// fade animations
+	os::led_ctrl::registerAnimation(anim__white_fade, ANIMATION_WHITE_FADE, F("<-   White    ->"));
+	os::led_ctrl::registerAnimation(anim__soft_white_fade, ANIMATION_SOFT_WHITE_FADE, F("<- Soft White ->"));
+	os::led_ctrl::registerAnimation(anim__red_fade, ANIMATION_RED_FADE, F("<-    Red     ->"));
+	os::led_ctrl::registerAnimation(anim__orn_fade, ANIMATION_ORANGE_FADE, F("<-   Orange   ->"));
+	os::led_ctrl::registerAnimation(anim__ylw_fade, ANIMATION_YELLOW_FADE, F("<-   Yellow   ->"));
+	os::led_ctrl::registerAnimation(anim__grn_fade, ANIMATION_GREEN_FADE, F("<-   Green    ->"));
+	os::led_ctrl::registerAnimation(anim__blu_fade, ANIMATION_BLUE_FADE, F("<-    Blue    ->"));
+	os::led_ctrl::registerAnimation(anim__prp_fade, ANIMATION_PURPLE_FADE, F("<-   Purple   ->"));
+	os::led_ctrl::registerAnimation(anim__pnk_fade, ANIMATION_PINK_FADE, F("<-    Pink    ->"));
 }

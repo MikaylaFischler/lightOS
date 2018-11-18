@@ -72,7 +72,13 @@ namespace os {
 		static void __root(uint8_t* state, uint8_t* prev, uint16_t* data);					// tier 0
 		static void __status(uint8_t* state, uint8_t* prev, uint16_t* data);				// tier 1
 		static void __anim_cat_select(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 1
+		static void __anim_select_common(uint8_t* state, uint8_t* prev, uint8_t, uint8_t);	// tier 2 virtual
 		static void __anim_select_color(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 2
+		static void __anim_select_fade(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 2
+		static void __anim_select_ripple(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
+		static void __anim_select_sparkle(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
+		static void __anim_select_rainbow(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
+		static void __anim_select_special(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
 		static void __anim_strip_select(uint8_t* state, uint8_t* prev, uint16_t* data);		// tier 3
 		static void __config(uint8_t* state, uint8_t* prev, uint16_t* data);				// tier 1
 		static void __config_strip_select(uint8_t* state, uint8_t* prev, uint16_t* data);	// tier 2
