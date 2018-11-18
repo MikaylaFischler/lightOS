@@ -261,4 +261,11 @@ void boot_fail(void) {
 void register_animations(void) {
 	os::led_ctrl::registerAnimation(anim__white, ANIMATION_WHITE, F("<-   White    ->"));
 	os::led_ctrl::registerAnimation(anim__soft_white, ANIMATION_SOFT_WHITE, F("<- Soft White ->"));
+	os::led_ctrl::registerAnimation(anim__red, ANIMATION_RED, F("<-    Red     ->"));
+	os::led_ctrl::registerAnimation(anim__orn, ANIMATION_ORANGE, F("<-   Orange   ->"));
+	os::led_ctrl::registerAnimation(anim__ylw, ANIMATION_YELLOW, F("<-   Yellow   ->"));
+	os::led_ctrl::registerAnimation(anim__grn, ANIMATION_GREEN, F("<-   Green    ->"));
+	os::led_ctrl::registerAnimation(anim__blu, ANIMATION_BLUE, F("<-    Blue    ->"));
+	os::led_ctrl::registerAnimation(anim__prp, ANIMATION_PURPLE, F("<-   Purple   ->"));
+	os::led_ctrl::registerAnimation(anim__pnk, ANIMATION_PINK, F("<-    Pink    ->"));
 }

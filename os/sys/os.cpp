@@ -10,10 +10,12 @@ void os::step(void) {
 	// update subsystems
 	ui::update();
 	display::update();
-	#ifdef DEBUG_VERBOSE
-	// Serial.println(os::dev->in.getKeyState(), HEX);
-	#endif
 	led_ctrl::update();
+
+	#ifdef DEBUG
+	Serial.print(F("Free Memory: "));
+	Serial.println(freeMemory());
+	#endif
 }
 
 void os::process_input(void) {
@@ -42,7 +44,10 @@ void os::process_input(void) {
 				break;
 		}
 
+		#ifdef DEBUG_VERBOSE
+		Serial.print(F("KEY PRESSED: "));
 		Serial.println(input, HEX);
+		#endif
 
 		last_processed_input = input;
 	}

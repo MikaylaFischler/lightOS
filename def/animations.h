@@ -5,8 +5,15 @@
 #include "../conf/config.h"
 #include "../os/sys/os.led_ctrl.hpp"
 
-#define ANIMATION_WHITE 1
-#define ANIMATION_SOFT_WHITE 2
+#define ANIMATION_WHITE			1
+#define ANIMATION_SOFT_WHITE	2
+#define ANIMATION_RED			3
+#define ANIMATION_ORANGE		4
+#define ANIMATION_YELLOW		5
+#define ANIMATION_GREEN			6
+#define ANIMATION_BLUE			7
+#define ANIMATION_PURPLE		8
+#define ANIMATION_PINK			9
 
 using os::led_ctrl::AnimationData;
 

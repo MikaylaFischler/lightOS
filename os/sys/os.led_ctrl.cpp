@@ -19,6 +19,8 @@ void os::led_ctrl::run(uint8_t anim_id, uint8_t strip_id) {
 		// if the animation was found
 		if (entry) {
 			// add the animation to the running list
+			free(data[strip_id - 1]);
+			data[strip_id - 1] = (AnimationData*) calloc(sizeof(AnimationData), 1);
 			running[strip_id - 1] = entry;
 		}
 	}
