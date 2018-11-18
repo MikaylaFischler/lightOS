@@ -38,8 +38,8 @@ void anim__pnk_fade(Adafruit_NeoPixel* strip, AnimationData* data) {
 }
 
 void _anim__fade(Adafruit_NeoPixel* strip, AnimationData* data, uint32_t color) {
-	// on initial case or overflow, update pixels
-	if (data->i == 255) {
+	// on initial case or 255, update pixels
+	if (data->i == 255 || data->i == 0) {
 		if (data->i == 0) { data->j = 25; }
 		data->i = 1;
 

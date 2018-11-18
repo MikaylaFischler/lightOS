@@ -112,7 +112,7 @@ void anim__pnk_sparkle(Adafruit_NeoPixel* strip, AnimationData* data);
 void _anim__sparkle(Adafruit_NeoPixel* strip, AnimationData* data, uint32_t color);
 
 void anim__rainbow(Adafruit_NeoPixel* strip, AnimationData* data);
-void anim__rainbow_wipe(Adafruit_NeoPixel* strip, AnimationData* data);
+void anim__rainbow_flow(Adafruit_NeoPixel* strip, AnimationData* data);
 
 uint32_t _anim__clr_cycle(uint8_t state);
 uint32_t color(uint8_t r, uint8_t g, uint8_t b);

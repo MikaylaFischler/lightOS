@@ -6,4 +6,6 @@
 #include "anim_color.cpp"
 #include "anim_fade.cpp"
 
+#include "anim_rainbow.cpp"
+
 #endif

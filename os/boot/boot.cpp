@@ -280,4 +280,9 @@ void register_animations(void) {
 	os::led_ctrl::registerAnimation(anim__blu_fade, ANIMATION_BLUE_FADE, F("<-    Blue    ->"));
 	os::led_ctrl::registerAnimation(anim__prp_fade, ANIMATION_PURPLE_FADE, F("<-   Purple   ->"));
 	os::led_ctrl::registerAnimation(anim__pnk_fade, ANIMATION_PINK_FADE, F("<-    Pink    ->"));
+
+	// rainbow animations
+	os::led_ctrl::registerAnimation(anim__rainbow, ANIMATION_RAINBOW, F("<-   Simple   ->"));
+	os::led_ctrl::registerAnimation(anim__rainbow_flow, ANIMATION_RAINBOW_FLOW, F("<-    Flow    ->"));
+
 }
