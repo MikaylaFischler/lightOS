@@ -5,7 +5,7 @@
 #define LIGHTOS_VERSION "lightOS v1.2.0a"
 // #define FASTBOOT
 #define DEBUG
-#define DEBUG_VERBOSE
+// #define DEBUG_VERBOSE
 
 // pin configuration (avoid pins 0 and 1)
 #define PIN_STRIP_1 6

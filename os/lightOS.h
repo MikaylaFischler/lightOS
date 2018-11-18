@@ -5,6 +5,9 @@
 #include "sys/oscore.h"
 #include "sys/os.cpp"
 
+// share
+#include "share/free_memory.c"
+
 // OS modules
 #include "sys/os.ui.cpp"
 #include "sys/os.display.cpp"
@@ -13,6 +16,9 @@
 // peripherals
 #include "dev/KeyControl.cpp"
 #include "dev/LCD.cpp"
+
+// animations
+#include "../def/include.h"
 
 // boot
 #include "boot/boot.cpp"

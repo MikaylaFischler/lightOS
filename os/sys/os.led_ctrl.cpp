@@ -6,35 +6,41 @@ void os::led_ctrl::init(void) {
 	anim_count = 0;
 
 	cur_run = 0;
-	for (int i = 0; i < os::dev->leds->num_strips; i++) { running[i] = 0; }
+	for (int i = 0; i < os::dev->leds->num_strips; i++) {
+		data[i] = (AnimationData*) calloc(sizeof(AnimationData), 1);
+		running[i] = 0;
+	}
 }
 
-void os::led_ctrl::run(uint8_t anim_id) {
-	RegisteredAnimation* entry = search_registry(anim_id, registry_head);
+void os::led_ctrl::run(uint8_t anim_id, uint8_t strip_id) {
+	if (strip_id > ID_STRIP_NULL) {
+		RegisteredAnimation* entry = search_registry(anim_id, registry_head);
 
-	// if the animation was found
-	if (entry) {
-		// add the animation to the running list
-		for (int i = 0; i < entry->num_strips; i++) {
-			running[entry->strip_req[i] - 1] = entry;
+		// if the animation was found
+		if (entry) {
+			// add the animation to the running list
+			running[strip_id - 1] = entry;
 		}
 	}
 }
 
 void os::led_ctrl::update(void) {
 	RegisteredAnimation* current = running[cur_run];
-	if (current) { current->anim(&(os::dev->leds->strips[cur_run])); }
+	if (current) { current->anim(os::dev->leds->strips[cur_run], data[cur_run]); }
+
+	if (data[cur_run]->sys_flag & FLAG_REQ_SHOW) {
+		os::dev->leds->strips[cur_run]->show();
+		data[cur_run]->sys_flag &= ~FLAG_REQ_SHOW;
+	}
 
 	if (++cur_run > os::dev->leds->num_strips) { cur_run = 0; }
 }
 
-void os::led_ctrl::registerAnimation(void (*anim)(Adafruit_NeoPixel**), uint8_t anim_id, uint8_t num_strips, uint8_t* strip_req) {
+void os::led_ctrl::registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id) {
 	anim_count++;
 	RegisteredAnimation* reg = (RegisteredAnimation*) malloc(sizeof(RegisteredAnimation));
 
 	reg->id = anim_id;
-	reg->num_strips = num_strips;
-	reg->strip_req = strip_req;
 	reg->anim = anim;
 
 	if (registry_head) {

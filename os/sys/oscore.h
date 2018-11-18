@@ -5,6 +5,7 @@
 #include <Adafruit_NeoPixel.h>
 #include "../dev/KeyControl.hpp"
 #include "../dev/LCD.hpp"
+#include "../share/free_memory.h"
 
 struct __ledstrips {
 	uint8_t num_strips;

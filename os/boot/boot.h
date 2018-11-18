@@ -3,8 +3,11 @@
 
 #include <Arduino.h>
 #include "../../conf/config.h"
+#include "../../def/animations.h"
 
 void boot(void);
 void boot_fail(void);
+
+void register_animations(void);
 
 #endif

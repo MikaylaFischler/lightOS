@@ -27,6 +27,7 @@ void os::process_input(void) {
 	interrupts();
 
 	if ((input != last_input) && (input != last_processed_input)) {
+	Serial.println(freeMemory());
 		switch (input) {
 			case KEYCTRL_KEY_ESC:
 				ui::stepOut();

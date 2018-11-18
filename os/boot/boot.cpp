@@ -6,11 +6,11 @@ void boot(void) {
 
 	#ifdef DEBUG
 	Serial.begin(115200);
-	Serial.println("[~~~~~~~~~~     lightOS     ~~~~~~~~~~]");
-	Serial.print("System Version: ");
-	Serial.println(LIGHTOS_VERSION);
-	Serial.println("");
-	Serial.println("Boot initiated in DEBUG mode...");
+	Serial.println(F("[~~~~~~~~~~     lightOS     ~~~~~~~~~~]"));
+	Serial.print(F("System Version: "));
+	Serial.println(F(LIGHTOS_VERSION));
+	Serial.println(F(""));
+	Serial.println(F("Boot initiated in DEBUG mode..."));
 	#endif
 
 	// initialize LCD display
@@ -25,7 +25,7 @@ void boot(void) {
 	delay(500);
 	#endif
 	#ifdef DEBUG
-	Serial.println("LCD Initialized...");
+	Serial.println(F("LCD Initialized..."));
 	#endif
 
 	// link devices to system
@@ -35,7 +35,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Initializing devices...");
+	Serial.println(F("Initializing devices..."));
 	#endif
 
 	// setup additional devices
@@ -45,7 +45,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Initializing inputs...");
+	Serial.println(F("Initializing inputs..."));
 	#endif
 
 	// initialize keypad input
@@ -75,7 +75,7 @@ void boot(void) {
 		if (status != 0) { boot_fail(); }
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t> Init Escape Key...");
+	Serial.println(F("\t> Init Escape Key..."));
 	#endif
 
 	#ifndef FASTBOOT
@@ -103,7 +103,7 @@ void boot(void) {
 		if (status != 0) { boot_fail(); }
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t> Init Back Key...");
+	Serial.println(F("\t> Init Back Key..."));
 	#endif
 
 	#ifndef FASTBOOT
@@ -131,7 +131,7 @@ void boot(void) {
 		if (status != 0) { boot_fail(); }
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t> Init Select Key...");
+	Serial.println(F("\t> Init Select Key..."));
 	#endif
 
 	#ifndef FASTBOOT
@@ -159,7 +159,7 @@ void boot(void) {
 		if (status != 0) { boot_fail(); }
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t> Init Next Key...");
+	Serial.println(F("\t> Init Next Key..."));
 	#endif
 
 	// initialize LEDs
@@ -169,7 +169,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Initializing LEDs...");
+	Serial.println(F("Initializing LEDs..."));
 	#endif
 	os::dev->leds = (ledstrips_t*) calloc(sizeof(ledstrips_t), 1);
 	os::dev->leds->num_strips = NUM_STRIPS;
@@ -181,7 +181,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t>Initializing Strip 0...");
+	Serial.println(F("\t>Initializing Strip 0..."));
 	#endif
 	os::dev->leds->strips[0] = new Adafruit_NeoPixel(STRIP_LENGTH, PIN_STRIP_1, STRIP_TYPE_RGB);
 	os::dev->leds->strips[0]->begin();
@@ -193,7 +193,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("\t>Initializing Strip 1...");
+	Serial.println(F("\t>Initializing Strip 1..."));
 	#endif
 	os::dev->leds->strips[1] = new Adafruit_NeoPixel(STRIP_LENGTH, PIN_STRIP_2, STRIP_TYPE_RGB);
 	os::dev->leds->strips[1]->begin();
@@ -207,7 +207,7 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Initializing UI...");
+	Serial.println(F("Initializing UI..."));
 	#endif
 	os::ui::init();
 
@@ -217,9 +217,19 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Initializing LED Control...");
+	Serial.println(F("Initializing LED Control..."));
 	#endif
 	os::led_ctrl::init();
+
+	#ifndef FASTBOOT
+	os::dev->out->setCursor(0, 1);
+	os::dev->out->print(F(">reg animations"));
+	delay(200);
+	#endif
+	#ifdef DEBUG
+	Serial.println(F("Registering LED animations..."));
+	#endif
+	register_animations();
 
 	#ifndef FASTBOOT
 	os::dev->out->setCursor(0, 1);
@@ -227,8 +237,8 @@ void boot(void) {
 	delay(200);
 	#endif
 	#ifdef DEBUG
-	Serial.println("Boot Sequence Finished.");
-	Serial.println("");
+	Serial.println(F("Boot Sequence Finished."));
+	Serial.println(F(""));
 	#endif
 
 	// clear input status
@@ -240,10 +250,15 @@ void boot(void) {
 
 void boot_fail(void) {
 	#ifdef DEBUG
-	Serial.println("Fatal Boot Failure!");
+	Serial.println(F("Fatal Boot Failure!"));
 	#endif
 	os::dev->out->setCursor(0, 0);
 	os::dev->out->print(F(">>BOOT  FAILED<<"));
 	delay(250);
 	exit(1);
+}
+
+void register_animations(void) {
+	os::led_ctrl::registerAnimation(anim__white, ANIMATION_WHITE);
+	os::led_ctrl::registerAnimation(anim__soft_white, ANIMATION_SOFT_WHITE);
 }

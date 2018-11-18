@@ -19,14 +19,14 @@ void os::display::update(void) {
 		uint8_t* tmp = NULL;
 
 		#ifdef DEBUG_VERBOSE
-		Serial.println(">> os::display::update");
-		Serial.print("HEAD @ 0x");
+		Serial.println(F(">> os::display::update"));
+		Serial.print(F("HEAD @ 0x"));
 		Serial.println((uintptr_t) cmd_queue, HEX);
-		Serial.print("TAIL @ 0x");
+		Serial.print(F("TAIL @ 0x"));
 		Serial.println((uintptr_t) cmd_queue_tail, HEX);
-		Serial.print("Running command @ 0x");
+		Serial.print(F("Running command @ 0x"));
 		Serial.println((uintptr_t) cmd, HEX);
-		Serial.print("Containing Data at @ 0x");
+		Serial.print(F("Containing Data at @ 0x"));
 		Serial.println((uintptr_t) cmd->data, HEX);
 		#endif
 
@@ -66,16 +66,16 @@ void os::display::update(void) {
 		}
 
 		#ifdef DEBUG_VERBOSE
-		Serial.print("HEAD @ 0x");
+		Serial.print(F("HEAD @ 0x"));
 		Serial.println((uintptr_t) cmd_queue, HEX);
-		Serial.print("TAIL @ 0x");
+		Serial.print(F("TAIL @ 0x"));
 		Serial.println((uintptr_t) cmd_queue_tail, HEX);
 		#endif
 
 		free(cmd);
 
 		#ifdef DEBUG_VERBOSE
-		Serial.print("Free'd @ 0x");
+		Serial.print(F("Free'd @ 0x"));
 		Serial.println((uintptr_t) cmd, HEX);
 		#endif
 
@@ -153,14 +153,14 @@ void os::display::__queue_cmd(uint8_t command, void* data, size_t size, uint8_t 
 	cmd->next = NULL;
 
 	#ifdef DEBUG_VERBOSE
-	Serial.println(">> os::display::__queue_cmd");
-	Serial.print("HEAD @ 0x");
+	Serial.println(F(">> os::display::__queue_cmd"));
+	Serial.print(F("HEAD @ 0x"));
 	Serial.println((uintptr_t) cmd_queue, HEX);
 
-	Serial.print("TAIL @ 0x");
+	Serial.print(F("TAIL @ 0x"));
 	Serial.println((uintptr_t) cmd_queue_tail, HEX);
 
-	Serial.print("Queueing command @ 0x");
+	Serial.print(F("Queueing command @ 0x"));
 	Serial.println((uintptr_t) cmd, HEX);
 	#endif
 
@@ -173,10 +173,10 @@ void os::display::__queue_cmd(uint8_t command, void* data, size_t size, uint8_t 
 	}
 
 	#ifdef DEBUG_VERBOSE
-	Serial.print("HEAD @ 0x");
+	Serial.print(F("HEAD @ 0x"));
 	Serial.println((uintptr_t) cmd_queue, HEX);
 
-	Serial.print("TAIL @ 0x");
+	Serial.print(F("TAIL @ 0x"));
 	Serial.println((uintptr_t) cmd_queue_tail, HEX);
 	#endif
 }
