@@ -259,6 +259,6 @@ void boot_fail(void) {
 }
 
 void register_animations(void) {
-	os::led_ctrl::registerAnimation(anim__white, ANIMATION_WHITE);
-	os::led_ctrl::registerAnimation(anim__soft_white, ANIMATION_SOFT_WHITE);
+	os::led_ctrl::registerAnimation(anim__white, ANIMATION_WHITE, F("<-    White    ->"));
+	os::led_ctrl::registerAnimation(anim__soft_white, ANIMATION_SOFT_WHITE, F("<-  SoftWhite  ->"));
 }

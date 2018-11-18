@@ -12,6 +12,7 @@
 #include "sys/os.ui.cpp"
 #include "sys/os.display.cpp"
 #include "sys/os.led_ctrl.cpp"
+#include "sys/os.led_ctrl.anim_select.cpp"
 
 // peripherals
 #include "dev/KeyControl.cpp"

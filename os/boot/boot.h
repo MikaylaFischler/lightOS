@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "../../conf/config.h"
 #include "../../def/animations.h"
+#include "../share/free_memory.h"
 
 void boot(void);
 void boot_fail(void);

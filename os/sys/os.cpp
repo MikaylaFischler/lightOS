@@ -13,7 +13,7 @@ void os::step(void) {
 	#ifdef DEBUG_VERBOSE
 	// Serial.println(os::dev->in.getKeyState(), HEX);
 	#endif
-	// led_ctrl::update();
+	led_ctrl::update();
 }
 
 void os::process_input(void) {
@@ -27,7 +27,6 @@ void os::process_input(void) {
 	interrupts();
 
 	if ((input != last_input) && (input != last_processed_input)) {
-	Serial.println(freeMemory());
 		switch (input) {
 			case KEYCTRL_KEY_ESC:
 				ui::stepOut();

@@ -21,6 +21,7 @@ namespace os {
 
 		struct anim_reg {
 			uint8_t id;
+			const __FlashStringHelper* name;
 			void (*anim)(Adafruit_NeoPixel*, AnimationData*);
 			struct os::led_ctrl::anim_reg* next;
 		};
@@ -31,7 +32,7 @@ namespace os {
 		static void run(uint8_t anim_id, uint8_t strip_id);
 		static void update(void);
 
-		static void registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id);
+		static void registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id, const __FlashStringHelper* name);
 		static RegisteredAnimation* getAnimationList(void);
 		static uint8_t getAnimationCount(void);
 
@@ -43,7 +44,7 @@ namespace os {
 		static uint8_t anim_count;
 		static uint8_t cur_run;
 
-		static RegisteredAnimation* search_registry(uint8_t id, RegisteredAnimation*);
+		static RegisteredAnimation* search_registry(uint8_t id, RegisteredAnimation* entry);
 	};
 };
 

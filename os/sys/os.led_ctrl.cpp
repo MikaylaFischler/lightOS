@@ -8,7 +8,7 @@ void os::led_ctrl::init(void) {
 	cur_run = 0;
 	for (int i = 0; i < os::dev->leds->num_strips; i++) {
 		data[i] = (AnimationData*) calloc(sizeof(AnimationData), 1);
-		running[i] = 0;
+		running[i] = NULL;
 	}
 }
 
@@ -33,14 +33,15 @@ void os::led_ctrl::update(void) {
 		data[cur_run]->sys_flag &= ~FLAG_REQ_SHOW;
 	}
 
-	if (++cur_run > os::dev->leds->num_strips) { cur_run = 0; }
+	if (++cur_run >= os::dev->leds->num_strips) { cur_run = 0; }
 }
 
-void os::led_ctrl::registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id) {
+void os::led_ctrl::registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id, const __FlashStringHelper* name) {
 	anim_count++;
 	RegisteredAnimation* reg = (RegisteredAnimation*) malloc(sizeof(RegisteredAnimation));
 
 	reg->id = anim_id;
+	reg->name = name;
 	reg->anim = anim;
 
 	if (registry_head) {
