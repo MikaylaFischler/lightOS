@@ -30,6 +30,10 @@
 
 #define STATUS__OVERVIEW	1
 
+#define ASEL__CAT_COLOR		1
+#define ASEL__CAT_FADE		2
+#define ASEL__CAT_RIPPLE	3
+
 #define ASEL__FIRST			0x1
 #define ASEL__LAST			(os::led_ctrl::getAnimationCount())
 
