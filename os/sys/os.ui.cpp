@@ -79,7 +79,7 @@ void os::ui::__root(uint8_t* state, uint8_t* prev, uint16_t* data) {
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to animation selection
-					spawn_child(ASEL__FIRST, __anim_select);
+					spawn_child(ASEL__CAT_COLOR, __anim_cat_select);
 				} else if (input & KEYCTRL_KEY_NEXT) {
 					// scroll to the next option
 					state[0] = ROOT__CONFIG;

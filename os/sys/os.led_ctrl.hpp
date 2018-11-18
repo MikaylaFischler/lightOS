@@ -31,6 +31,7 @@ namespace os {
 		static void init(void);
 		static void run(uint8_t anim_id, uint8_t strip_id);
 		static void update(void);
+		static RegisteredAnimation* get(uint8_t anim_id);
 
 		static void registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id, const __FlashStringHelper* name);
 		static RegisteredAnimation* getAnimationList(void);

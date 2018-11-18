@@ -1,6 +1,6 @@
 #include "os.ui.hpp"
 
-void os::ui::__anim_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
+void os::ui::__anim_cat_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
 	if (prev[0] == NULL_STATE) {
 		os::display::clear();
 		os::display::print(F("[- AnimSelect -]"));
@@ -21,7 +21,7 @@ void os::ui::__anim_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
 
 				if (input & KEYCTRL_KEY_SELECT) {
 					// go to solid color animation selection
-					// spawn_child();
+					spawn_child(ASEL__COLOR_FIRST, __anim_select_color);
 				} else if (input & KEYCTRL_KEY_NEXT) {
 					// scroll to the next option
 					state[0] = ASEL__CAT_FADE;
@@ -116,6 +116,46 @@ void os::ui::__anim_select(uint8_t* state, uint8_t* prev, uint16_t* data) {
 				} else if (input & KEYCTRL_KEY_ESC) { esc(); }
 				break;
 		}
+	}
+}
+
+void os::ui::__anim_select_color(uint8_t* state, uint8_t* prev, uint16_t* data) {
+	if (prev[0] == NULL_STATE) {
+		os::display::clear();
+		os::display::print(F("[- SolidColor -]"));
+	}
+
+	if ((*state) != (*prev)) {
+		first_call = true;
+		prev[0] = *state;
+	}
+
+	if (first_call || input) {
+		RegisteredAnimation* anim = os::led_ctrl::get(*state);
+
+		if (first_call) {
+			os::display::setCursor(0, 1);
+			os::display::print(anim->name);
+		}
+
+		if (input & KEYCTRL_KEY_SELECT) {
+			// go to solid color animation selection
+			// spawn_child();
+		} else if (input & KEYCTRL_KEY_NEXT) {
+			// scroll to the next option
+			if (state[0] == ASEL__COLOR_LAST) {
+				state[0] = ASEL__COLOR_FIRST;
+			} else {
+				state[0]++;
+			}
+		} else if (input & KEYCTRL_KEY_BACK) {
+			// scroll to the prev option
+			if (state[0] == ASEL__COLOR_FIRST) {
+				state[0] = ASEL__COLOR_LAST;
+			} else {
+				state[0]--;
+			}
+		} else if (input & KEYCTRL_KEY_ESC) { esc(); }
 	}
 }
 

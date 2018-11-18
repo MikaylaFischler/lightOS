@@ -36,6 +36,10 @@ void os::led_ctrl::update(void) {
 	if (++cur_run >= os::dev->leds->num_strips) { cur_run = 0; }
 }
 
+os::led_ctrl::RegisteredAnimation* os::led_ctrl::get(uint8_t anim_id) {
+	return search_registry(anim_id, registry_head);
+}
+
 void os::led_ctrl::registerAnimation(void (*anim)(Adafruit_NeoPixel*, AnimationData*), uint8_t anim_id, const __FlashStringHelper* name) {
 	anim_count++;
 	RegisteredAnimation* reg = (RegisteredAnimation*) malloc(sizeof(RegisteredAnimation));
