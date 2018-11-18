@@ -10,15 +10,18 @@
 #define UI_STEP_NEXT 	0x8
 
 /**
-	@details heirarchy:
-	root
-	 |- status
-	 |- anim_select
-	 ||- strip_select
-	 |- config
-	 ||- strip specific (select)
-	 |||- brightness
-	 |- sleep
+	@details heirarchy:						<br/>
+	root									<br/>
+	 |- status								<br/>
+	 |- anim_select							<br/>
+	 ||- category select					<br/>
+	 |||- animation select					<br/>
+	 ||||- strip select						<br/>
+	 |- config								<br/>
+	 ||- category (system or strip)			<br/>
+	 |||- strip select						<br/>
+	 ||||- brightness						<br/>
+	 |- sleep								<br/>
 */
 
 #define NULL_STATE			0
@@ -33,9 +36,12 @@
 #define ASEL__CAT_COLOR		1
 #define ASEL__CAT_FADE		2
 #define ASEL__CAT_RIPPLE	3
+#define ASEL__CAT_SPARKLE	4
+#define ASEL__CAT_RAINBOW	5
+#define ASEL__CAT_SPECIAL	6
 
 #define ASEL__FIRST			0x1
-#define ASEL__LAST			(os::led_ctrl::getAnimationCount())
+#define ASEL__LAST			(os::led_ctrl::getAnimationCount() + 1)
 
 #define CONFIG__SYSTEM		1
 #define CONFIG__STRIP		2
